@@ -3,9 +3,9 @@ var socketio = require('socket.io'); // Scoekt IOモジュールを読み込み
 var fs = require('fs'); // ファイル入出力モジュールを読み込み
 
 // 3000番ポートでHTTPサーバーを立てる
-var serer = http.createServcer(function(req, res) {
+var server = http.createServer(function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'}); // ヘッダ出力
-  res.end(fs.readFileSync('./index.html', 'utf-8')); // index.htmlの内容を出力
+  res.end(fs.readFileSync('./index2.html', 'utf-8')); // index.htmlの内容を出力
 }).listen(3000);
 
 // サーバーをソケットに紐づける
@@ -25,6 +25,12 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('s2c_message', {value: data.value});
   });
 });
+
+function loop() {
+  io.sockets.emit('chat', {value: 'Hi'});
+};
+
+setInterval(loop, 1000);
 
 
 // 接続の具体的な処理は、ハンドラとして定義

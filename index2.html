@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title></title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/lib/nv.d3.js"></script>
   </head>
   <body>
     <div class="container">
@@ -58,6 +58,10 @@
 
         // クライアントからサーバーへ送信
         ioSocket.emit("c2s_broadcast", {value: message});
+      })
+
+      ioSocket.on('chat', function(data) {
+        $("#messageView").append("<div>" + data.value + "</div>");
       })
     </script>
   </body>
